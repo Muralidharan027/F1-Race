@@ -22,11 +22,33 @@ export default function ScrollCanvas({
   const totalFrames = 240;
   const imageFolderPath = "/assets/frames";
 
-  // Preload all frames
+  // Preload frames in background and use a timed progress to ensure fast entry
   useEffect(() => {
     let active = true;
     const tempImages: HTMLImageElement[] = [];
     let loadedCount = 0;
+
+    // Fake progress to ensure we enter the site in ~2.5 seconds maximum,
+    // avoiding the long wait for all 240 high-res frames to download.
+    let fakeProgress = 0;
+    const maxTime = 2500; // 2.5 seconds
+    const intervalMs = 30;
+    const increment = 100 / (maxTime / intervalMs);
+
+    const progressInterval = setInterval(() => {
+      if (!active) return;
+      fakeProgress += increment;
+      
+      if (fakeProgress >= 100) {
+        fakeProgress = 100;
+        clearInterval(progressInterval);
+        onProgress(100);
+        setImagesLoaded(true);
+        onComplete();
+      } else {
+        onProgress(fakeProgress);
+      }
+    }, intervalMs);
 
     for (let i = 1; i <= totalFrames; i++) {
       const img = new Image();
@@ -34,29 +56,21 @@ export default function ScrollCanvas({
       const frameNum = String(i).padStart(4, "0");
       img.src = `${imageFolderPath}/frame_${frameNum}.png`;
 
-      img.onload = () => {
+      const handleLoad = () => {
         if (!active) return;
         loadedCount++;
-        const percent = (loadedCount / totalFrames) * 100;
-        onProgress(percent);
-
-        if (loadedCount === totalFrames) {
-          setImagesLoaded(true);
-          onComplete();
+        
+        // If all images load super fast (e.g. from cache), finish early
+        if (loadedCount === totalFrames && fakeProgress < 100) {
+           clearInterval(progressInterval);
+           onProgress(100);
+           setImagesLoaded(true);
+           onComplete();
         }
       };
 
-      img.onerror = () => {
-        if (!active) return;
-        loadedCount++;
-        const percent = (loadedCount / totalFrames) * 100;
-        onProgress(percent);
-
-        if (loadedCount === totalFrames) {
-          setImagesLoaded(true);
-          onComplete();
-        }
-      };
+      img.onload = handleLoad;
+      img.onerror = handleLoad;
 
       tempImages.push(img);
     }
@@ -65,6 +79,7 @@ export default function ScrollCanvas({
 
     return () => {
       active = false;
+      clearInterval(progressInterval);
     };
   }, [onProgress, onComplete]);
 
