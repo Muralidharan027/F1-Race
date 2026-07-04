@@ -127,7 +127,7 @@ export default function TelemetryHUD({ scrollProgress }: TelemetryHUDProps) {
   return (
     <div className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-between p-6 md:p-12 select-none">
       {/* Dynamic Telemetry HUD Panels (Top Area) */}
-      <div className="w-full flex justify-between items-start mt-20 font-mono text-[9px] text-gray-400">
+      <div className="w-full flex justify-between items-start mt-16 md:mt-20 font-mono text-[8px] md:text-[9px] text-gray-400">
         {/* Left Stats */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -164,9 +164,9 @@ export default function TelemetryHUD({ scrollProgress }: TelemetryHUDProps) {
       </div>
 
       {/* Specification Cards - Spring Overlays (Middle Area) */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center my-auto w-full">
+      <div className="grid grid-cols-2 md:grid-cols-12 gap-2 md:gap-8 items-center my-auto w-full px-2 md:px-0">
         {/* Left Spec Column */}
-        <div className="md:col-span-4 flex flex-col space-y-4">
+        <div className="col-span-1 md:col-span-4 flex flex-col space-y-2 md:space-y-4">
           <AnimatePresence>
             {showSpecs &&
               specs
@@ -185,16 +185,16 @@ export default function TelemetryHUD({ scrollProgress }: TelemetryHUDProps) {
                     }}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
-                    className="hud-panel p-5 cursor-pointer ease-out transition-transform duration-100 flex flex-col border-l-4 border-l-[#fcd116]"
+                    className="hud-panel p-3 md:p-5 cursor-pointer ease-out transition-transform duration-100 flex flex-col border-l-4 border-l-[#fcd116]"
                     style={{ transformStyle: "preserve-3d" }}
                   >
-                    <span className="font-hud text-[8px] text-[#fcd116] tracking-widest font-black uppercase mb-1">
+                    <span className="font-hud text-[7px] md:text-[8px] text-[#fcd116] tracking-widest font-black uppercase mb-0.5 md:mb-1">
                       {spec.title}
                     </span>
-                    <span className="font-hud text-xl font-black text-white glow-text leading-none mb-1">
+                    <span className="font-hud text-base md:text-xl font-black text-white glow-text leading-none mb-0.5 md:mb-1">
                       {spec.value}
                     </span>
-                    <span className="font-body text-[9px] text-gray-400 font-light tracking-wide">
+                    <span className="font-body text-[7px] md:text-[9px] text-gray-400 font-light tracking-wide leading-tight">
                       {spec.detail}
                     </span>
                   </motion.div>
@@ -203,10 +203,10 @@ export default function TelemetryHUD({ scrollProgress }: TelemetryHUDProps) {
         </div>
 
         {/* Center spacing (Formula Car Viewport) */}
-        <div className="md:col-span-4" />
+        <div className="hidden md:block md:col-span-4" />
 
         {/* Right Spec Column */}
-        <div className="md:col-span-4 flex flex-col space-y-4">
+        <div className="col-span-1 md:col-span-4 flex flex-col space-y-2 md:space-y-4">
           <AnimatePresence>
             {showSpecs &&
               specs
@@ -225,16 +225,16 @@ export default function TelemetryHUD({ scrollProgress }: TelemetryHUDProps) {
                     }}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
-                    className="hud-panel p-5 cursor-pointer ease-out transition-transform duration-100 flex flex-col items-end text-right border-r-4 border-r-[#fcd116]"
+                    className="hud-panel p-3 md:p-5 cursor-pointer ease-out transition-transform duration-100 flex flex-col items-end text-right border-r-4 border-r-[#fcd116]"
                     style={{ transformStyle: "preserve-3d" }}
                   >
-                    <span className="font-hud text-[8px] text-[#fcd116] tracking-widest font-black uppercase mb-1">
+                    <span className="font-hud text-[7px] md:text-[8px] text-[#fcd116] tracking-widest font-black uppercase mb-0.5 md:mb-1">
                       {spec.title}
                     </span>
-                    <span className="font-hud text-xl font-black text-white glow-text leading-none mb-1">
+                    <span className="font-hud text-base md:text-xl font-black text-white glow-text leading-none mb-0.5 md:mb-1">
                       {spec.value}
                     </span>
-                    <span className="font-body text-[9px] text-gray-400 font-light tracking-wide">
+                    <span className="font-body text-[7px] md:text-[9px] text-gray-400 font-light tracking-wide leading-tight">
                       {spec.detail}
                     </span>
                   </motion.div>
@@ -244,20 +244,20 @@ export default function TelemetryHUD({ scrollProgress }: TelemetryHUDProps) {
       </div>
 
       {/* bottom HUD bar - telemetry readout (Speed, RPM, Gear) */}
-      <div className="w-full flex flex-col space-y-4 md:space-y-0 md:flex-row justify-between items-end border-t border-white/5 pt-6 font-mono text-[9px] text-gray-500">
+      <div className="w-full flex flex-col space-y-4 md:space-y-0 md:flex-row justify-between items-end border-t border-white/5 pt-4 md:pt-6 font-mono text-[9px] text-gray-500">
         {/* Speedometer widget */}
-        <div style={{ gap: "24px" }} className="flex items-center">
-          <div style={{ gap: "16px" }} className="hud-panel p-4 flex items-center">
+        <div className="flex items-center gap-3 md:gap-6 w-full md:w-auto justify-between md:justify-start">
+          <div className="hud-panel p-3 md:p-4 flex items-center gap-2 md:gap-4 flex-1 md:flex-none">
             <div className="flex flex-col">
-              <span className="text-gray-500 font-black">VELOCITY</span>
-              <span className="font-hud text-2xl font-black text-white leading-none tracking-widest mt-1">
-                {speed} <span className="text-xs font-light text-gray-400">KM/H</span>
+              <span className="text-gray-500 font-black text-[7px] md:text-[9px]">VELOCITY</span>
+              <span className="font-hud text-xl md:text-2xl font-black text-white leading-none tracking-widest mt-1">
+                {speed} <span className="text-[10px] md:text-xs font-light text-gray-400">KM/H</span>
               </span>
             </div>
-            <div className="w-[1px] h-8 bg-white/10" />
-            <div className="flex flex-col">
-              <span className="text-gray-500 font-black">GEAR RATIO</span>
-              <span className="font-hud text-2xl font-black text-[#fcd116] leading-none glow-text mt-1 text-center">
+            <div className="w-[1px] h-6 md:h-8 bg-white/10 mx-1 md:mx-0" />
+            <div className="flex flex-col items-center md:items-start">
+              <span className="text-gray-500 font-black text-[7px] md:text-[9px]">GEAR RATIO</span>
+              <span className="font-hud text-xl md:text-2xl font-black text-[#fcd116] leading-none glow-text mt-1 text-center">
                 {gear}
               </span>
             </div>
@@ -286,8 +286,8 @@ export default function TelemetryHUD({ scrollProgress }: TelemetryHUDProps) {
         </div>
 
         {/* System parameters bar */}
-        <div className="flex flex-col items-end space-y-1 text-right">
-          <div style={{ gap: "16px" }} className="flex">
+        <div className="flex flex-col items-center md:items-end space-y-1 text-center md:text-right w-full md:w-auto mt-4 md:mt-0">
+          <div className="flex flex-wrap justify-center md:justify-end gap-2 md:gap-4 text-[7px] md:text-[9px]">
             <span className="flex items-center">
               <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse mr-1.5" />
               ABS: MONITORING

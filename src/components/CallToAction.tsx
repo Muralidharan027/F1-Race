@@ -126,7 +126,7 @@ export default function CallToAction({ scrollProgress }: CallToActionProps) {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 0.3 }}
         transition={{ delay: 0.6 }}
-        className="absolute bottom-12 font-mono text-[8px] text-gray-500 uppercase tracking-widest"
+        className="absolute bottom-6 md:bottom-12 font-mono text-[6px] md:text-[8px] text-gray-500 uppercase tracking-widest text-center px-4"
       >
         © 2026 RS20 FORMULA LABS // ALL RIGHTS RESERVED
       </motion.div>

@@ -124,12 +124,12 @@ export default function BlueprintOverlay({ scrollProgress }: BlueprintOverlayPro
                     marginRight: callout.lineX < 0 ? `${Math.abs(callout.lineX)}px` : "0px",
                     marginTop: `${callout.lineY}px`,
                   }}
-                  className="hud-panel p-3 bg-black/80 border border-[#fcd116]/20 flex flex-col min-w-[180px] shadow-lg"
+                  className="hud-panel p-2 md:p-3 bg-black/80 border border-[#fcd116]/20 flex flex-col min-w-[130px] md:min-w-[180px] max-w-[45vw] shadow-lg"
                 >
-                  <span className="font-hud text-[8px] text-[#fcd116] tracking-wider font-bold uppercase mb-0.5">
+                  <span className="font-hud text-[6px] md:text-[8px] text-[#fcd116] tracking-wider font-bold uppercase mb-0.5">
                     {callout.title}
                   </span>
-                  <span className="font-mono text-[7px] text-gray-400 uppercase leading-relaxed">
+                  <span className="font-mono text-[5px] md:text-[7px] text-gray-400 uppercase leading-relaxed md:leading-relaxed">
                     {callout.desc}
                   </span>
                   <div className="w-full h-[1px] bg-white/10 my-1.5" />
@@ -142,14 +142,14 @@ export default function BlueprintOverlay({ scrollProgress }: BlueprintOverlayPro
             ))}
 
             {/* Technical grid widgets on borders */}
-            <div className="absolute top-1/4 left-12 hud-panel p-4 flex flex-col font-mono text-[7px] text-gray-500 uppercase">
+            <div className="hidden md:flex absolute top-1/4 left-12 hud-panel p-4 flex-col font-mono text-[7px] text-gray-500 uppercase">
               <span className="text-[#fcd116] font-bold mb-1">AERO SIMULATOR</span>
               <span>PRESSURE RATIO: 1.14</span>
               <span>DRAG COEFF: 0.344 cd</span>
               <span>DOWNFORCE LOAD: 22.4 KN</span>
             </div>
 
-            <div className="absolute bottom-1/4 right-12 hud-panel p-4 flex flex-col font-mono text-[7px] text-gray-500 uppercase">
+            <div className="hidden md:flex absolute bottom-1/4 right-12 hud-panel p-4 flex-col font-mono text-[7px] text-gray-500 uppercase">
               <span className="text-[#fcd116] font-bold mb-1">STRUCTURAL STRESS</span>
               <span>COCKPIT INT: 100% OK</span>
               <span>KEVLAR SKIN: ACTIVE</span>

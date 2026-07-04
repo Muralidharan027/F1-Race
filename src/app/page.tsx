@@ -162,7 +162,7 @@ export default function Home() {
               fontFamily: "var(--font-display)",
               zIndex: 5,
             }}
-            className="absolute inset-0 flex items-center justify-center font-black text-[30vw] text-black pointer-events-none select-none tracking-tighter transition-opacity duration-300"
+            className="absolute inset-0 flex items-center justify-center font-black text-[45vw] md:text-[30vw] text-black pointer-events-none select-none tracking-tighter transition-opacity duration-300"
           >
             RS20
           </div>
